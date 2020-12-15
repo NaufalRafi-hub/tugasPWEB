@@ -1,5 +1,12 @@
+import os
 import argparse
 import cv2 as cv
+
+def isImage(inputImg):
+    if inputImg is None:
+        return False
+    else:
+        return True
 
 def load_classifier():
     return cv.CascadeClassifier('classifier/haarcascade_frontalface_default.xml'),cv.CascadeClassifier('classifier/haarcascade_eye.xml')
@@ -12,14 +19,14 @@ def detect(inputImg, show):
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
     faceCL, eyeCL = load_classifier()
-    check = False
+    flag = False
 
     faces = faceCL.detectMultiScale(gray, 1.3, 5)
     for (x,y,w,h) in faces:
         img = cv.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2)
         area = (x+w)*(y+h)
         if int((area/(width*height))*100) > 40:
-            check = True
+            flag = True
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = img[y:y+h, x:x+w]
         eyes = eyeCL.detectMultiScale(roi_gray)
@@ -31,7 +38,22 @@ def detect(inputImg, show):
         cv.waitKey(0)
         cv.destroyAllWindows()
     else:
-        return check
+        return flag
+
+def run(inputImg, show):
+    if isImage(inputImg) is True:
+        flag = detect(inputImg, show)
+        if flag is True:
+            print("Accepted")
+        elif flag is False:
+            cmd = "del {}".format(inputImg)
+            os.system(cmd)
+            print("Photo Rejected")
+        elif flag is None:
+            print("Debug Mode Activated")
+    elif isImage(inputImg) is False:
+        cmd = "del {}".format(inputImg)
+        os.system(cmd)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Face detection process')
@@ -39,5 +61,4 @@ if __name__ == "__main__":
     parser.add_argument("-s", "--show", action="store_true", help="to show image")
     args = vars(parser.parse_args())
 
-    find = detect(args['input'], args['show'])
-    print(find)
+    run(args['input'],args['show'])
