@@ -44,16 +44,17 @@ def run(inputImg, show):
     if isImage(inputImg) is True:
         flag = detect(inputImg, show)
         if flag is True:
-            print("Accepted")
+            print("Ahhhhh Mantap")
         elif flag is False:
             cmd = "del {}".format(inputImg)
             os.system(cmd)
-            print("Photo Rejected")
+            print("Foto Ditolak")
         elif flag is None:
             print("Debug Mode Activated")
     elif isImage(inputImg) is False:
         cmd = "del {}".format(inputImg)
         os.system(cmd)
+        print("Pass")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Face detection process')
