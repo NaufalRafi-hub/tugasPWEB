@@ -1,13 +1,79 @@
 <!DOCTYPE html>
 <html>
+<style>
+	body{
+		margin-top: 170px;
+	}
+	.fileContainer {
+   		overflow: hidden;
+    	position: relative;
+	}
+	* {
+		text-align: center;
+		font-family: helvetica;
+		font-style: italic;
+	}
+
+	.fileContainer {
+		font-style: italic ; 
+		font-size: 30px;
+		color : rgb(0, 0, 0);
+		display: inline-block;
+		background: linear-gradient(30deg,rgb(255, 255, 255),rgb(87, 168, 235));
+		padding: 10px 15px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+		border: 0;
+	}
+
+	.fileContainer [type=file] {
+		cursor: pointer;
+	}
+
+
+  	#sub-btn {
+    	font-style: italic ; 
+		font-weight: bold;
+		font-size: 20px;
+		color : rgb(8, 8, 8);
+		display: inline-block;
+		background: linear-gradient(55deg,rgb(80, 170, 255),rgb(255, 255, 255));
+		padding: 20px 35px;
+		box-sizing: border-box;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  	}
+	.btn {
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 100px;
+	}
+	.panel {
+		padding-top: 50px;
+		padding-bottom: 50px;
+		margin-left: 550px;
+		margin-right: 550px;
+		border-radius: 20px;
+		background: linear-gradient(30deg,rgb(255, 255, 255),rgb(87, 168, 235));
+	}
+	h1 {
+		font-size: 20px;
+	}
+</style>
 <body>
 
 <!-- TODO: Bagusin front nyaaaa -->
+<div class="panel">
+<h1>Select image to upload:</h1>
 <form action="./backend/upload.php" method="post" enctype="multipart/form-data">
-  Select image to upload:
-  <input type="file" name="fileToUpload" id="fileToUpload">
-  <input type="submit" value="Upload Image" name="submit">
+  
+  	<label class="fileContainer">
+  		<input type="file" data-multiple-caption="{count} files selected" multiple name="fileToUpload" id="fileToUpload" class="inputfile">
+  	</label>
+  	<div class="btn">
+  		<input id="sub-btn" type="submit" value="Upload Image" name="submit">
+	</div>
 </form>
+</div>
 
+</script>
 </body>
-</html>
+</html>                         
